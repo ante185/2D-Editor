@@ -1,10 +1,10 @@
 #include <fstream>
 #include <iostream>
 
-const char* tinyWorld = "../../worldmap/tiny_world.ybin";
-const char* smallWorld = "../../worldmap/small_world.ybin";
-const char* mediumWorld = "../../worldmap/regular_world.ybin";
-const char* largeWorld = "../../worldmap/large_world.ybin";
+const	char*	tinyWorld	=	"../../worldmap/tiny_world.ybin";
+const	char*	smallWorld	=	"../../worldmap/small_world.ybin";
+const	char*	mediumWorld	=	"../../worldmap/regular_world.ybin";
+const	char*	largeWorld	=	"../../worldmap/large_world.ybin";
 
 void getWorldSize(const char* filePath, unsigned int& width, unsigned int& height) {
 
@@ -15,12 +15,12 @@ void getWorldSize(const char* filePath, unsigned int& width, unsigned int& heigh
 	unsigned int fileLenght = file.tellg();
 	file.seekg(0);
 
-	char * data = new char[fileLenght];
+	unsigned char * data = new unsigned char[fileLenght];
 
-	file.read(data, fileLenght);
+	file.read((char*)data, fileLenght);
 	int i = 0;
-	std::cout << (unsigned short)(data[i++] + data[i++]) << ':';
-	std::cout << (unsigned short)(data[i++] + data[i++]) << '	' << '\n';
+	std::cout << (data[i++] + data[i++]) << ':';
+	std::cout << (data[i++] + data[i++]) << '	' << '\n';
 
 	delete[] data;
 }
