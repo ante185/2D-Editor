@@ -25,3 +25,43 @@ Region::Region(unsigned short x, unsigned short y, CLIMATE c, RELIEF r, VEGETATI
 Region::Region(unsigned short x, unsigned short y, unsigned char c, unsigned char r, unsigned char v, unsigned char w, unsigned char o)
 :Region(x, y, (CLIMATE) c, (RELIEF) r, (VEGETATION) v, (WATER) w, (WORLDOBJECT) o)
 {}
+
+const void Region::getRegionInfo(const CLIMATE * c, const RELIEF * r, const VEGETATION * v, const WATER * w, const WORLDOBJECT * o)
+{
+	if(c)
+		c = &climate;
+	if(r)
+		r = &relief;
+	if(v)
+		v = &vegetation;
+	if(w)
+		w = &water;
+	if(o)
+		o = &object;
+}
+
+void Region::updateRegionInfo(const CLIMATE *c, const RELIEF *r, const VEGETATION *v, const WATER *w, const WORLDOBJECT *o)
+{
+	if (c)
+		c = &climate;
+	if (r)
+		r = &relief;
+	if (v)
+		v = &vegetation;
+	if (w)
+		w = &water;
+	if (o)
+		o = &object;
+}
+
+const void Region::getCoordinates(const unsigned short *x, const unsigned short *y)
+{
+	x = &this->x;
+	y = &this->y;
+}
+
+void Region::setCoordinates(const unsigned short x, const unsigned short y)
+{
+	this->x = x;
+	this->y = y;
+}
