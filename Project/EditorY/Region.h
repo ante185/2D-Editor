@@ -9,7 +9,7 @@ enum WORLDOBJECT{WOBJ_NONE, PRIM_SPAWN};
 class Region
 {
 private:
-	int	x,	y;
+	unsigned short	x,	y;
 	CLIMATE	climate;
 	RELIEF	relief;
 	VEGETATION	vegetation;
@@ -20,7 +20,9 @@ public:
 	Region(const Region&);
 	~Region();
 
-	Region(int x, int y, CLIMATE, RELIEF, VEGETATION, WATER, WORLDOBJECT);
-	Region(int x, int y, char c, char r, char v, char w, char o);
+	Region(unsigned short x, unsigned short y, CLIMATE, RELIEF, VEGETATION, WATER, WORLDOBJECT);
+	Region(unsigned short x, unsigned short y, unsigned char c, unsigned char r, unsigned char v, unsigned char w, unsigned char o);
+
+
 };
 
