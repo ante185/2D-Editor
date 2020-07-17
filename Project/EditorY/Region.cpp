@@ -40,18 +40,13 @@ const void Region::getRegionInfo(const CLIMATE * c, const RELIEF * r, const VEGE
 		o = &object;
 }
 
-void Region::updateRegionInfo(const CLIMATE *c, const RELIEF *r, const VEGETATION *v, const WATER *w, const WORLDOBJECT *o)
+void Region::setRegionInfo(CLIMATE c, RELIEF r, VEGETATION v, WATER w, WORLDOBJECT o)
 {
-	if (c)
-		c = &climate;
-	if (r)
-		r = &relief;
-	if (v)
-		v = &vegetation;
-	if (w)
-		w = &water;
-	if (o)
-		o = &object;
+	climate = c;
+	relief = r;
+	vegetation = v;
+	water = w;
+	object = o;
 }
 
 const void Region::getCoordinates(const unsigned short *x, const unsigned short *y)
@@ -65,3 +60,16 @@ void Region::setCoordinates(const unsigned short x, const unsigned short y)
 	this->x = x;
 	this->y = y;
 }
+
+//Region Region::operator=(const Region&  b)
+//{
+//	x = b.x;
+//	y = b.y;
+//	climate = b.climate;
+//	relief	= b.relief;
+//	vegetation = b.vegetation;
+//	water = b.water;
+//	object = b.object;
+//
+//	return *this;
+//}
