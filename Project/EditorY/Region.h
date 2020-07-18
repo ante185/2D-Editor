@@ -23,7 +23,7 @@ public:
 	Region(unsigned short x, unsigned short y, CLIMATE, RELIEF, VEGETATION, WATER, WORLDOBJECT);
 	Region(unsigned short x, unsigned short y, unsigned char c, unsigned char r, unsigned char v, unsigned char w, unsigned char o);
 
-	const void getRegionInfo(const CLIMATE*, const RELIEF*, const VEGETATION*, const WATER*, const WORLDOBJECT*);
+	const void getRegionInfo(CLIMATE*, RELIEF*, VEGETATION*, WATER*, WORLDOBJECT*);
 	//void updateRegionInfo(CLIMATE*, RELIEF*, VEGETATION*, WATER*, WORLDOBJECT*);
 	void setRegionInfo(CLIMATE, RELIEF, VEGETATION, WATER, WORLDOBJECT);
 

@@ -98,7 +98,26 @@ void WorldMap::saveWorldMap()
 
 	writeBuffer = new unsigned char[bufferLenght];
 
+	CLIMATE clm_ptr;
+	RELIEF rlf_ptr;
+	VEGETATION veg_ptr;
+	WATER wat_ptr;
+	WORLDOBJECT wob_ptr;
+
+
 	((unsigned short*)writeBuffer)[0] = sizeX;
 	((unsigned short*)writeBuffer)[1] = sizeY;
+	unsigned int i = 4, k = 0;
+	for (; i < bufferLenght;) {
+		regions[k].getRegionInfo(&clm_ptr, &rlf_ptr, &veg_ptr, &wat_ptr, &wob_ptr);
+		writeBuffer[i++] = (unsigned char)clm_ptr;
+		writeBuffer[i++] = (unsigned char)rlf_ptr;
+		writeBuffer[i++] = (unsigned char)veg_ptr;
+		writeBuffer[i++] = (unsigned char)wat_ptr;
+		writeBuffer[i++] = (unsigned char)wob_ptr;
+	}
 
+	fileOut.write((const char*)writeBuffer, bufferLenght);
+
+	fileOut.close();
 }

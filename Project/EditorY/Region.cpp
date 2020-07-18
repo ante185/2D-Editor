@@ -26,18 +26,18 @@ Region::Region(unsigned short x, unsigned short y, unsigned char c, unsigned cha
 :Region(x, y, (CLIMATE) c, (RELIEF) r, (VEGETATION) v, (WATER) w, (WORLDOBJECT) o)
 {}
 
-const void Region::getRegionInfo(const CLIMATE * c, const RELIEF * r, const VEGETATION * v, const WATER * w, const WORLDOBJECT * o)
+const void Region::getRegionInfo(CLIMATE * c, RELIEF * r, VEGETATION * v, WATER * w, WORLDOBJECT * o)
 {
 	if(c)
-		c = &climate;
+		*c = climate;
 	if(r)
-		r = &relief;
+		*r = relief;
 	if(v)
-		v = &vegetation;
+		*v = vegetation;
 	if(w)
-		w = &water;
+		*w = water;
 	if(o)
-		o = &object;
+		*o = object;
 }
 
 void Region::setRegionInfo(CLIMATE c, RELIEF r, VEGETATION v, WATER w, WORLDOBJECT o)

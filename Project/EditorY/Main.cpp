@@ -15,6 +15,7 @@ int main() {
 	WorldMap testingWorld;
 	
 	testingWorld.loadWorldMap(mediumWorld);
+	testingWorld.saveWorldMap();
 
 	return 0;
 }
