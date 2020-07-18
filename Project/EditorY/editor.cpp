@@ -3,7 +3,16 @@
 bool Editor::update()
 {
 	std::string str;
-	std::getline(std::cin, str);
+	std::cin >> str;
 
-	return false;
+	if(str == "quit"){
+		return false;
+	}
+	if (str == "help") {
+		
+	}
+
+
+
+	return true;
 }

@@ -4,6 +4,8 @@
 #include "WorldMap.h"
 
 
+std::string commands = "";
+
 class Editor
 {	
 private:
