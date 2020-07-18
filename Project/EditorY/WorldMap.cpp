@@ -89,10 +89,11 @@ void WorldMap::loadWorldMap(const char * const filePath)
 	delete[] data;
 }
 
-void WorldMap::saveWorldMap()
+void WorldMap::saveWorldMap(const char* const filePath)
 {
 	std::ofstream fileOut;
-	fileOut.open("../../saved_worldmap/world.ybin", std::ios::out | std::ios::binary);
+	//fileOut.open("../../saved_worldmap/world.ybin", std::ios::out | std::ios::binary);
+	fileOut.open(filePath, std::ios::out | std::ios::binary);
 	unsigned char* writeBuffer;
 	unsigned int bufferLenght = 4 + (sizeX*sizeY*5);
 

@@ -16,7 +16,7 @@ public:
 	~WorldMap();
 
 	void loadWorldMap(const char* const filePath);
-	void saveWorldMap();
+	void saveWorldMap(const char* const filePath);
 
 	Region* regions;
 };

@@ -123,11 +123,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="editor.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="editor.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="WorldMap.h" />
   </ItemGroup>
