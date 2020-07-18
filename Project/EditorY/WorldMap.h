@@ -9,7 +9,6 @@ private:
 	char sizeName[7];
 	char* worldPath;
 
-	Region* regions;
 
 public:
 	WorldMap();
@@ -18,5 +17,7 @@ public:
 
 	void loadWorldMap(const char* const filePath);
 	void saveWorldMap();
+
+	Region* regions;
 };
 

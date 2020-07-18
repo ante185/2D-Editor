@@ -96,7 +96,10 @@ void WorldMap::saveWorldMap()
 	unsigned char* writeBuffer;
 	unsigned int bufferLenght = 4 + (sizeX*sizeY*5);
 
-	writeBuffer = new unsigned char[bufferLenght];
+	//writeBuffer = new unsigned char[bufferLenght];
+
+	unsigned char test[50004];
+	writeBuffer = test;
 
 	CLIMATE clm_ptr;
 	RELIEF rlf_ptr;
@@ -108,7 +111,7 @@ void WorldMap::saveWorldMap()
 	((unsigned short*)writeBuffer)[0] = sizeX;
 	((unsigned short*)writeBuffer)[1] = sizeY;
 	unsigned int i = 4, k = 0;
-	for (; i < bufferLenght;) {
+	for (; i < bufferLenght; k++) {
 		regions[k].getRegionInfo(&clm_ptr, &rlf_ptr, &veg_ptr, &wat_ptr, &wob_ptr);
 		writeBuffer[i++] = (unsigned char)clm_ptr;
 		writeBuffer[i++] = (unsigned char)rlf_ptr;
