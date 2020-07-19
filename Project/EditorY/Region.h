@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 enum CLIMATE{SEA, CONTINENTAL, OCEANIC, MEDITERRAN, TROPICAL, ARID, DESERT, NORDIC, POLAR};
 enum RELIEF{ RELIEF_NONE, PLAIN, ROCKY, HILLS, MOUNTAINS};
@@ -30,6 +31,7 @@ public:
 	const void getCoordinates(const unsigned short*, const unsigned short*);
 	void setCoordinates(const unsigned short, const unsigned short);
 
+	std::string getStrDescription();
 	//Region operator=(const Region&);
 };
 

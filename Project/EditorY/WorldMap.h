@@ -5,17 +5,17 @@
 class WorldMap
 {
 private:
+public:
 	unsigned char sizeX, sizeY;
 	char sizeName[7];
 	char* worldPath;
 
 
-public:
 	WorldMap();
 	WorldMap(const WorldMap&);
 	~WorldMap();
 
-	void loadWorldMap(const char* const filePath);
+	bool loadWorldMap(const char* const filePath);
 	void saveWorldMap(const char* const filePath);
 
 	Region* regions;

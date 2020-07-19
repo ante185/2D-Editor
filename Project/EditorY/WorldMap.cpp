@@ -18,7 +18,7 @@ WorldMap::~WorldMap()
 		delete worldPath;
 }
 
-void WorldMap::loadWorldMap(const char * const filePath)
+bool WorldMap::loadWorldMap(const char * const filePath)
 {
 	int len = std::strlen(filePath) + 1;
 	worldPath = new char[len ];
@@ -26,6 +26,11 @@ void WorldMap::loadWorldMap(const char * const filePath)
 
 	std::ifstream file;
 	file.open(filePath, std::ios::in | std::ios::ate | std::ios::binary);
+
+	if (!file.is_open()) {
+		return false;
+	}
+
 
 	unsigned int fileLenght = (unsigned int)file.tellg();
 	file.seekg(0);
@@ -87,10 +92,15 @@ void WorldMap::loadWorldMap(const char * const filePath)
 	}
 
 	delete[] data;
+	return true;
 }
 
 void WorldMap::saveWorldMap(const char* const filePath)
 {
+	int len = std::strlen(filePath) + 1;
+	worldPath = new char[len];
+	strcpy_s(worldPath, len, filePath);
+
 	std::ofstream fileOut;
 	//fileOut.open("../../saved_worldmap/world.ybin", std::ios::out | std::ios::binary);
 	fileOut.open(filePath, std::ios::out | std::ios::binary);
