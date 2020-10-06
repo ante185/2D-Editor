@@ -16,6 +16,7 @@ private:
 	Region* region_ptr;
 
 public:
+	WorldMap* getROworldMap();
 	bool update();
 };
 

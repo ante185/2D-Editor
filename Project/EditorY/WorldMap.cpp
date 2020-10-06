@@ -4,6 +4,8 @@
 
 WorldMap::WorldMap()
 {
+	sizeX = 0;
+	sizeY = 0;
 }
 
 WorldMap::WorldMap(const WorldMap &)
@@ -16,6 +18,29 @@ WorldMap::~WorldMap()
 		delete[] regions;
 	if(worldPath)
 		delete worldPath;
+}
+
+WorldMap::WorldMap(unsigned short sizeX, unsigned short sizeY, CLIMATE climateFill)
+:sizeX(sizeX), sizeY(sizeY)
+{
+}
+
+void WorldMap::fillArea(short x1, short y1, short x2, short y2, Region & region)
+{
+	short height = y2 + y1;
+	short width = x2 - x1;
+	CLIMATE clm;
+	RELIEF rlf;
+	VEGETATION veg;
+	WATER wat;
+	WORLDOBJECT wob;
+	region.getRegionInfo(&clm, &rlf, &veg, &wat, &wob);
+
+	for(short k = 0; k < height; k++){
+		for (short i = 0; i < width; i++) {
+			regions[x1 + i + k * sizeX].setRegionInfo(clm, rlf, veg, wat, wob);
+		}
+	};
 }
 
 bool WorldMap::loadWorldMap(const char * const filePath)

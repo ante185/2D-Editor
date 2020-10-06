@@ -1,10 +1,15 @@
 #include "editor.h"
 
+WorldMap * Editor::getROworldMap()
+{
+	return &currentMap;
+}
+
 bool Editor::update()
 {
 	std::string str;
 	std::string currentWord;
-	int intA, intB;
+	int intA, intB, intC, intD;
 
 	std::stringstream cmdstream;
 	std::getline(std::cin, str);
@@ -39,6 +44,7 @@ bool Editor::update()
 	else if (currentWord == "save") {
 		cmdstream >> currentWord;
 		currentMap.saveWorldMap(currentWord.c_str());
+		std::cout << "World saved to: " << currentWord << std::endl;
 	}
 	else if (currentWord == "getRegion") {
 		cmdstream >> intA >> intB;
@@ -58,16 +64,21 @@ bool Editor::update()
 		WORLDOBJECT wob;
 
 		cmdstream >> intA >> intB;
+		cmdstream >> intC >> intD;
 		clm = (CLIMATE)intA;
 		rlf = (RELIEF)intB;
-		cmdstream >> intA >> intB;
-		veg = (VEGETATION)intA;
-		wat = (WATER)intB;
+		veg = (VEGETATION)intC;
+		wat = (WATER)intD;
 		cmdstream >> intA;
 		wob = (WORLDOBJECT)intA;
 
 		currentRegion.setRegionInfo(clm, rlf, veg, wat, wob);
 		std::cout << currentRegion.getStrDescription() << std::endl;
+	}
+	else if (currentWord == "fillArea") {
+		cmdstream >> intA >> intB;
+		cmdstream >> intC >> intD;
+		currentMap.fillArea(intA, intB, intC, intD, currentRegion);
 	}
 	else {
 		std::cout << "Unknown command \n";
