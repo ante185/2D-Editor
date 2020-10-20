@@ -17,48 +17,56 @@ static sf::Color tileTints[9]{
 		sf::Color(205,205,0, 255),	//DESERT
 		sf::Color(160,240,230, 255),//NORDIC
 		sf::Color(210,230,240, 255),//POLAR
-	};		
+	};
+static sf::Texture noneTexture;
+
+class drawableRegion : public sf::Drawable {
+public:
+	sf::Sprite relief;
+	sf::Sprite vegetation;
+	sf::Sprite waterFeature;
+	sf::Sprite primSpawn;
+
+	drawableRegion() {
+		relief.setTexture(noneTexture);
+		vegetation.setTexture(noneTexture);
+		waterFeature.setTexture(noneTexture);
+		primSpawn.setTexture(noneTexture);
+	}
+	void setPosition(float x, float y){
+		relief.setPosition(x, y);
+		vegetation.setPosition(x, y);
+		waterFeature.setPosition(x, y);
+		primSpawn.setPosition(x, y);
+	}
+
+	// Inherited via Drawable
+	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override
+	{
+		target.draw(relief);
+		target.draw(vegetation);
+		target.draw(waterFeature);
+		target.draw(primSpawn);
+	}
+
+};
 Editor editor;
-std::vector<sf::Sprite> sprites;
+std::vector<drawableRegion> sprites;
 std::vector<sf::Drawable*> uiElemnts;
 sf::RenderWindow* gameWindow = nullptr;
 bool run = true;
 bool update = false;
 
+
+
 void tintTile(sf::Sprite *tile, CLIMATE clm) {
-	/*switch (clm)
-	{
-	case SEA:
-		tile->setColor(sf::Color::Blue);
-		break;
-	case CONTINENTAL:
-		tile->setColor(sf::Color(64, 158, 64, 255));
-		break;
-	case OCEANIC:
-		tile->setColor(sf::Color::Green);
-		break;
-	case MEDITERRAN:
-		tile->setColor(sf::Color(158, 168, 0, 255));
-		break;
-	case TROPICAL:
-		tile->setColor(sf::Color(20, 208, 20, 255));
-		break;
-	case ARID:
-		tile->setColor(sf::Color(200, 100, 0, 255));
-		break;
-	case DESERT:
-		tile->setColor(sf::Color::Yellow);
-		break;
-	case NORDIC:
-		tile->setColor(sf::Color(0, 200, 200, 255));
-		break;
-	case POLAR:
-		tile->setColor(sf::Color::White);
-		break;
-	default:
-		break;
-	}*/
 	tile->setColor(tileTints[(int)clm]);
+}
+void tintTile(drawableRegion *tile, CLIMATE clm) {
+	tile->relief.setColor(tileTints[(int)clm]);
+	tile->vegetation.setColor(tileTints[(int)clm]);
+	tile->waterFeature.setColor(tileTints[(int)clm]);
+	tile->primSpawn.setColor(tileTints[(int)clm]);
 }
 void renderUI() {
 	sf::View current = gameWindow->getView();
@@ -80,9 +88,15 @@ void renderLoop() {
 	int windowHeights = 1000;
 	int windowWidth = 1600;
 	sf::Event sfevent;
-	sf::Texture tileTexture[2];
-	tileTexture[0].loadFromFile("../../images/default.png");
-	tileTexture[1].loadFromFile("../../images/spawn_plain.png");
+	sf::Texture tileTexture[7];
+	noneTexture.loadFromFile("../../images/none.png");
+	{
+		sf::String texturePath[]{ "../../images/default.png", "../../images/plains.png", "../../images/rocky.png", "../../images/hills.png", "../../images/mountains.png", "../../images/forest.png", "../../images/spawn.png" };
+		for (int i = 0; i < 7; i++) {
+			tileTexture[i].loadFromFile(texturePath[i]);
+		}
+	}
+	
 	
 	sf::Font font;
 	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
@@ -138,14 +152,39 @@ void renderLoop() {
 				for (int y = 0; y < wMap->sizeY; y++) {
 					for (int x = 0; x < wMap->sizeX; x++) {
 						CLIMATE tileClimate;
+						RELIEF relief;
+						VEGETATION vegetation;
+						WATER waterFeature;
 						WORLDOBJECT primSpawn;
-						sf::Sprite tileSprite = sf::Sprite(tileTexture[0]);
+						drawableRegion tileSprite;
 						tileSprite.setPosition(x * 32, y * 32);
-						//tileSprite.setScale(0.5f, 0.5f);
-						wMap->regions[x + y * wMap->sizeX].getRegionInfo(&tileClimate, nullptr, nullptr, nullptr, &primSpawn);
+						wMap->regions[x + y * wMap->sizeX].getRegionInfo(&tileClimate, &relief, &vegetation, &waterFeature, &primSpawn);
 						clmCounts[tileClimate]++;
+						switch (relief)
+						{
+						case RELIEF_NONE:
+							tileSprite.relief.setTexture(tileTexture[0]);
+							break;
+						case PLAIN:
+							tileSprite.relief.setTexture(tileTexture[1]);
+							break;
+						case ROCKY:
+							tileSprite.relief.setTexture(tileTexture[2]);
+							break;
+						case HILLS:
+							tileSprite.relief.setTexture(tileTexture[3]);
+							break;
+						case MOUNTAINS:
+							tileSprite.relief.setTexture(tileTexture[4]);
+							break;
+						default:
+							break;
+						}
+						if (vegetation) {
+							tileSprite.vegetation.setTexture(tileTexture[5]);
+						}
 						if (primSpawn) {
-							tileSprite.setTexture(tileTexture[1]);
+							tileSprite.primSpawn.setTexture(tileTexture[6]);
 						}
 
 						tintTile(&tileSprite, tileClimate);
@@ -196,8 +235,8 @@ void renderLoop() {
 		gameWindow->clear();
 
 		if(sprites.size() > 0)
-			for (sf::Sprite &sprite : sprites) {
-				gameWindow->draw(sprite);
+			for (drawableRegion &tile : sprites) {
+				gameWindow->draw(tile);
 			}
 		renderUI();
 

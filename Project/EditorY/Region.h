@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <SFML/Graphics.hpp>
 
 enum CLIMATE{SEA, CONTINENTAL, OCEANIC, MEDITERRAN, TROPICAL, ARID, DESERT, NORDIC, POLAR};
 enum RELIEF{ RELIEF_NONE, PLAIN, ROCKY, HILLS, MOUNTAINS};
@@ -7,7 +8,7 @@ enum VEGETATION{VEG_NONE, FOREST};
 enum WATER{ WATER_NONE, RIVER_SMALL, RIVER_MED, RIVER_LARGE, LAKE, SWAMP};
 enum WORLDOBJECT{WOBJ_NONE, PRIM_SPAWN};
 
-class Region
+class Region 
 {
 private:
 	unsigned short	x,	y;
@@ -32,6 +33,7 @@ public:
 	void setCoordinates(const unsigned short, const unsigned short);
 
 	std::string getStrDescription();
+
 	//Region operator=(const Region&);
 };
 

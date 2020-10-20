@@ -170,6 +170,8 @@ std::string Region::getStrDescription()
 	return result;
 }
 
+
+
 //Region Region::operator=(const Region&  b)
 //{
 //	x = b.x;
